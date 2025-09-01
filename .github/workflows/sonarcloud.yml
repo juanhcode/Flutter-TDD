@@ -1,19 +1,22 @@
 name: Build for Sonar
+
 on:
   push:
     branches:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
+
     steps:
       # 1. Checkout
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Mejor relevancia del análisis
+          fetch-depth: 0
 
       # 2. Setup Java (Sonar necesita Java)
       - name: Set Up Java
@@ -51,9 +54,11 @@ jobs:
           sonar-scanner \
             -Dsonar.organization=juanhcode \
             -Dsonar.projectKey=juanhcode_Flutter-TDD \
-            -Dsonar.sources=. \
+            -Dsonar.sources=lib \
+            -Dsonar.tests=test \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.dart.test.reportPaths=coverage/lcov.info \
+            -Dsonar.dart.coverage.reportPaths=coverage/lcov.info \
+            -Dsonar.exclusions=android/**,ios/**,web/**,**/*.css,**/*.html,**/*.xml,**/*.yaml,**/*.swift,**/*.kt \
             -Dsonar.c.file.suffixes=- \
             -Dsonar.cpp.file.suffixes=- \
             -Dsonar.objc.file.suffixes=-
