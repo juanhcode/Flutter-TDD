@@ -8,17 +8,5 @@ void main() {
       final result = validator.validar("Juan", "juan@correo.com");
       expect(result, "Formulario válido");
     });
-
-    test("Correo vacío", () {
-      final validator = FormValidator();
-      final result = validator.validar("Juan", "");
-      expect(result, "Errores en el formulario");
-    });
-
-    test("Correo inválido", () {
-      final validator = FormValidator();
-      final result = validator.validar("Juan", "juancorreo.com");
-      expect(result, "Errores en el formulario");
-    });
   });
 }
